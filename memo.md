@@ -11,3 +11,10 @@ https://github.com/googleapis/python-genai
 ```bash
 pip install google-genai
 ```
+
+
+ChatGoogleGenerativeAI
+https://python.langchain.com/docs/integrations/chat/google_generative_ai/
+```bash
+pip install -U langchain-google-genai
+```
