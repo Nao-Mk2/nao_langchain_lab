@@ -2,7 +2,8 @@ import llm.google
 
 def main():
   model = llm.google.Gemini()
-  ai_msg = model.invoke("Explain how AI works in a few words")
+  user_input = input("Enter your message for the AI: ")
+  ai_msg = model.invoke(user_input)
   print(ai_msg.content)
 
 
