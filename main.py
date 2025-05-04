@@ -32,6 +32,25 @@ def build_chain(model_type="local"):
     scored_docs = retriever.vectorstore.similarity_search_with_score(question)
     filtered_docs = vector_store.filter_documents_by_similarity_score(scored_docs)
 
+    print(f"\n------ debug info ------")
+    print(f"query: {question}")
+    print(f"retriever_metadata: {retriever.metadata}")
+    print(f"search_type: {retriever.search_type}")
+    print(f"search_num(k): {retriever.search_kwargs.get('k', 'default')}")
+    try:
+      doc_count = retriever.vectorstore._collection.count()
+      print(f"doc_count_in_vector_store: {doc_count}")
+    except Exception as e:
+      print(f"error_on_retrieving_docs: {str(e)}")
+    print(f"scored_docs_count: {len(scored_docs)}")
+    print("docs_score_and_content_preview:\n")
+    if scored_docs:
+      for i, (doc, score) in enumerate(scored_docs):
+        print(f"doc{i+1} score: {score}")
+        print(f"doc{i+1} content_preview: {doc.page_content[:50]}...")
+    print(f"filtered_docs_count: {len(filtered_docs)}")
+    print("------------------------\n")
+
     if filtered_docs:
         print("debug: context chain invoked")
         context = "\n\n".join([doc.page_content for doc in filtered_docs])
